@@ -1,5 +1,4 @@
 -- jawaban nomor 5
-
 CREATE DATABASE db_praktikum;
 
 USE db_praktikum;
