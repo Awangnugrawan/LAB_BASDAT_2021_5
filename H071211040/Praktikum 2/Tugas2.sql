@@ -19,4 +19,4 @@ where customerNumber >= 100 and customerNumber <= 150;
 -- no5
 select * from customers
 where country != "USA" and creditLimit != 0
-order by customerName asc limit 9,10;
+order by customerName asc limit 10,10;
