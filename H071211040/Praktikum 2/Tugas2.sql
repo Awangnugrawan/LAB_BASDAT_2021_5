@@ -6,7 +6,7 @@ select * from offices where country ="San Francisco";
 -- use classicmodels;
 select * from orderdetails
 where quantityOrdered > 70
-order by orderLineNumber ;
+order by orderLineNumber asc;
 
 -- no3
 use classicmodels;
