@@ -1,12 +1,12 @@
 -- no1
 use classicmodels;
-select * from offices where city ="San Francisco"
+select * from offices where country ="San Francisco";
 
 -- no2
-use classicmodels;
+-- use classicmodels;
 select * from orderdetails
 where quantityOrdered > 70
-order by orderLineNumber desc;
+order by orderLineNumber ;
 
 -- no3
 use classicmodels;
@@ -18,5 +18,5 @@ where customerNumber >= 100 and customerNumber <= 150;
 
 -- no5
 select * from customers
-where country != "USA" and creditLimit = 0
-order by customerName desc limit 9,10;
+where country != "USA" and creditLimit != 0
+order by customerName asc limit 9,10;
