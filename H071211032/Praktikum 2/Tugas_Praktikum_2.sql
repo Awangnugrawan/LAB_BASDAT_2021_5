@@ -1,0 +1,17 @@
+-- Tugas Praktikum 2
+--  
+-- (Jawaban Nomor 1)
+-- SELECT * FROM offices WHERE city = 'San Francisco';
+--  
+-- -- (Jawaban Nomor 2)
+-- SELECT * FROM orderdetails WHERE quantityOrdered > 70 ORDER BY orderLineNumber ASC;
+--  
+-- -- (Jawaban Nomor 3)
+-- SELECT DISTINCT productLine FROM products;
+--  
+-- -- (Jawaban Nomor 4)
+-- SELECT customerNumber AS 'nomor pelanggan', customerName AS 'nama pelanggan' FROM customers WHERE customerNumber > 100 AND customerNumber < 150;
+-- 
+-- -- (Jawaban Nomor 5)
+-- SELECT * FROM customers WHERE country != 'USA' AND creditLimit != 0 ORDER BY customerName ASC LIMIT 10,10;
+-- 
