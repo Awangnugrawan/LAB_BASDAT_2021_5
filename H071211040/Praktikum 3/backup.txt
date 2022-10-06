@@ -1,0 +1,76 @@
+-- no1
+use classicmodels;
+desc employees;
+select * from employees;
+insert into employees(employeeNumber, lastName, firstName, extension, email, officeCode, reportsTo, jobTitle)
+value(123123, 'Adam', 'Muchtar', 'x1234', 'test123@gmail.com', 8, 1143, 'Sales Rep'),
+	 (2341, 'Muhammad', 'Fikra', 'x2341', 'test231@gmail.com', 3, 1102, 'Sales Rep'),
+     (3412, 'Fikri', 'Nur', 'x3412', 'test312@gmail.com', 8, 1088, 'Sales Rep');
+	 
+
+-- no2
+use classicmodels;
+select * from employees;
+desc employees;
+select * from offices;
+insert into offices
+value(8, 'Gowa', '0895938304141', 'Yusuf Bauti', null, 'INA', 'Indonesia', '93211', 'MNK');
+update employees set officeCode = 8 
+where jobTitle = 'Sales Rep' and officeCode = 4;
+
+-- no3
+use db_praktikum;
+select * from mahasiswa;
+alter table mahasiswa add No_telp varchar(20) not null;
+alter table mahasiswa add Alamat varchar(100);
+alter table mahasiswa add Email varchar(50) not null;
+alter table mahasiswa add Keterangan varchar(20);
+desc mahasiswa;
+
+insert into mahasiswa (nama, nim, jk, No_telp, Alamat, Email, Keterangan)
+values
+	  ('Muchtar Adam', 				'H071211040', 'L', '0895398304141', 'Jl.Yusuf Bauti blok c.27 Gowa', 						'muchtaradam2002@gmail.com', 'semester 3'),
+	  ('Nur Aisyah S', 				'H071211054', 'P', '085256223076', 'Ramsis Unhas',											'aisyahsahar03@gmail.com', 'semester 3'),
+	  ('Firmansyah', 				'H071211070', 'L', '085931042162', 'Pinrang', 												'frmnsyah33@gmail.com', 'semester 3'),
+	  ('Isra Nirwana Nur N. Kalau', 'H071211036', 'P', '089503906266', 'Jl. Tarakan', 											'andiraja954@gmail.com', 'semester 3'),
+	  ('Dhiyaa Unnisa', 			'H071211079', 'P', '0887435587359', 'Jl. Andi Nurdin Sanrima No. 80/54, Maros', 			'unnisadhiyaa25@gmail.com', 'semester 3'),
+	  ('Michiko Tjiang', 			'H071211013', 'P', '082335368793', 'Jln Batua Raya',										'michiko.tjiang14@gmail.com', 'semester 3'),
+	  ('Arjuna Ribal', 				'H071211032', 'L', '082187482003', 'Jl. Telkom 5, No.132, Telkomas', 						'arjuna.ribal@gmail.com', 'semester 3'),
+	  ('Muhammad Erwin Arif', 		'H071211059', 'L', '081254498373', 'Jl. Manyampa, Desa Bontoala Kec Pallangga',			    'muherwinarif31@gmail.com', 'semester 3'),
+	  ('Jones Azarya T',			'H071211050', 'L', '085256854637', 'Jln.Pandang Raya, Kompleks Chrysant E18, Panakukkang',  'jonesazarya123@gmail.com', 'semester 3'),
+	  ('Edgar Silvanus Limba', 		'H071211026', 'L', '081230004236', 'Jl. Parinring I no. 9/17 Perumnas Antang', 				'edgarsilvanus12@gmail.con', 'semester 3'),
+	  ('Andi Raja Zulfaqar', 		'H071211057', 'L', '081223798112', 'Jl,jalan bloc a', 										'AndiRaja@gmail.com', 'semester 3'),
+	  ('Muh.Shofwan Siswandi', 		'H071201090', 'L', '082290507134', 'Jl,jalan blok b', 										'ShofwanSiswandi@gmail.com', 'semester 5');
+
+
+-- no4
+use db_praktikum;
+select * from buku;
+insert into buku
+value('buku1', '2000', 'pengarang1', 1),
+	 ('buku2', '201', 'pengarang2', 2),
+     ('buku3', '203', 'pengarang3', 3),
+     ('buku4', '204', 'pengarang4', 4),
+     ('buku5', '205', 'pengarang4', 5);
+
+delete from pinjam;
+select * from pinjam;
+desc pinjam;
+insert into pinjam
+value
+     ('2022-10-7 02:17:15', 3, 3, null, 2),
+     ('2022-10-4 02:14:12', 1, 5, null, 1),
+	 ('2022-10-5 02:15:13', 2, 5, null, 3),
+	 ('2022-10-6 02:16:14', 3, 2, null, 5),
+     ('2022-10-8 02:18:16', 4, 4, null, 4);
+
+-- no5
+use db_praktikum;
+desc mahasiswa;
+select * from mahasiswa;
+
+insert into mahasiswa
+value('dataBaru1', 'H071211001', 4, 1, '+62xxx', '', 'test13@gmail.com', 'keterangan13');
+
+insert into mahasiswa(nama, nim, jk, id_mahasiswa, No_telp, Alamat, Email)
+value('dataBaru2', 'H071211002', 5, 12311, '+62xxx', 'jl.xxxx', 'test13@gmail.com');
