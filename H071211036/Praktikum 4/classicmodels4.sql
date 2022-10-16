@@ -21,7 +21,7 @@
 -- FROM products AS p
 -- INNER JOIN orderdetails AS od
 -- USING(productCode)
--- WHERE od.priceEach = (p.MSRP*0.8);
+-- WHERE od.priceEach < (p.MSRP*0.8);
 
 
 
