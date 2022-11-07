@@ -45,7 +45,7 @@ WHERE p.amount > 100000 OR d.quantityOrdered >= 50;
 
 UPDATE customers 
 SET `status` = 'Regular'
-WHERE `status` = "";
+WHERE `status` = '';
 
 SELECT DISTINCT c.customerNumber, c.customerName, c.`status`
 FROM customers AS c
