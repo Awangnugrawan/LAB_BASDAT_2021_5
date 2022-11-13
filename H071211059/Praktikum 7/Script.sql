@@ -16,6 +16,7 @@ from products p
 where p.productName like "%ford%"
 ;
 
+select c.customerName, e.firstName , e.lastName, o.orderNumber, sum(o2.quantityOrdered * o2.priceEach)
 from customers c 
 join employees e on c.salesRepEmployeeNumber = e.employeeNumber
 join orders o using (customerNumber)
