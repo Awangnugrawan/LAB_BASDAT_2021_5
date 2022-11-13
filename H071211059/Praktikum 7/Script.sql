@@ -28,3 +28,13 @@ where o.orderNumber =
 			order by sum(o.quantityOrdered * o.priceEach) desc limit 1)
 ;
 
+select distinct c.country, length(c.country) as `Panjang Karakter`
+from customers c 
+having 	`Panjang Karakter` = (select min(length(country)) from customers c) or 
+		`Panjang Karakter` = (select max(length(country)) from customers c)
+order by `Panjang Karakter` desc
+;
+
+
+ 
+
