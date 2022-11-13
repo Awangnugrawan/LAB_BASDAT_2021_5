@@ -1,67 +1,67 @@
-use classicmodels;
+USE classicmodels;
  
  -- nomor 1
-select amount from payments;
-select c.customerName as 'Nama Pelanggan',
-sum(p.amount) as 'Total Belanja',
-c.creditLimit as 'Batas Kredit',
-sum(p.amount)-c.creditLimit as `Selisih`
-from customers c 
-join payments p 
-using (customerNumber)
-group by c.customerName
-having 'Total Belanja' > 'Batas Kredit'
-order by `Selisih` desc;
+SELECT amount FROM payments;
+SELECT c.customerName AS 'Nama Pelanggan',
+SUM(p.amount) AS 'Total Belanja',
+c.creditLimit AS 'Batas Kredit',
+SUM(p.amount) - c.creditLimit AS `Selisih`
+FROM customers c 
+JOIN payments p 
+USING (customerNumber)
+GROUP BY c.customerName
+HAVING 'Total Belanja' > 'Batas Kredit'
+ORDER BY `Selisih` DESC;
 
 -- nomor 2
-select * from orderDetails;
-select concat(c.customerName,' : ', c.contactFirstName,' ', c.contactLastName,' @ ', c.addressLine1) AS `Pelanggan`,
-sum(od.quantityOrdered) as `Jumlah Orderan`  
-from customers c
-join orders o
-using (customerNumber)
-join orderdetails od 
-using (orderNumber)
-group by customerName
-order by `Jumlah Orderan` desc limit 1;
+SELECT * FROM orderDetails;
+SELECT CONCAT(c.customerName,' : ', c.contactFirstName,' ', c.contactLastName,' @ ', c.addressLine1) AS `Pelanggan`,
+SUM(od.quantityOrdered) AS `Jumlah Orderan`  
+FROM customers c
+JOIN orders o
+USING (customerNumber)
+JOIN orderdetails od 
+USING (orderNumber)
+GROUP BY customerName
+ORDER BY `Jumlah Orderan` DESC LIMIT 1;
 ;
 
 -- Nomor 3
-select date_format(p.paymentDate, '%M %Y') as `Hari Pembayaran`,
-count(distinct p.customerNumber) as `Jumlah Pelanggan`, 
-group_concat(distinct c.customerName order by c.customerName separator ' , ') as `List Pelanggan`,
-sum(distinct p.amount) as `Jumlah Pembayaran`
-from payments p
-join customers c
-using (customerNumber)
-group by `Hari Pembayaran`
-having `Hari Pembayaran` like "Feb%"
-order by `Jumlah Pembayaran` desc;
+SELECT DATE_FORMAT(p.paymentDate, '%M %Y') AS `Hari Pembayaran`,
+COUNT(DISTINCT p.customerNumber) AS `Jumlah Pelanggan`, 
+GROUP_CONCAT(DISTINCT c.customerName ORDER BY c.customerName SEPARATOR ' , ') AS `List Pelanggan`,
+SUM(DISTINCT p.amount) AS `Jumlah Pembayaran`
+FROM payments p
+JOIN customers c
+USING (customerNumber)
+GROUP BY `Hari Pembayaran`
+HAVING `Hari Pembayaran` LIKE "Feb%"
+ORDER BY `Jumlah Pembayaran` DESC;
 
 -- Nomor 4
 
-select upper(p.productName) as `Nama Produk`, count(od.orderNumber) as `Jumlah Di Order`, group_concat(o.orderDate, ' ') as `Waktu Orderan`, p.buyPrice as `Harga Beli`,  od.priceEach as `Harga Jual`, sum(od.quantityOrdered) as `Total Jumlah Orderan`,
-concat(od.priceEach * sum(od.quantityOrdered), ' - ', p.buyPrice * sum(od.quantityOrdered), ' = ', sum(od.quantityOrdered) * (od.priceEach - p.buyPrice)) as `Pendapatan - Modal = Keuntungan`
-from orders o
-join orderdetails od
-using (orderNumber)
-join products p
-using (productCode)
-group by `Harga Jual`
-having `Nama Produk` like '%ENZO'
-and sum(od.quantityOrdered) * (od.priceEach - p.buyPrice) > 5000
-order by sum(od.quantityOrdered) * (od.priceEach - p.buyPrice) desc;
+SELECT UPPER(p.productName) AS `Nama Produk`, COUNT(od.orderNumber) AS `Jumlah Di Order`, GROUP_CONCAT(o.orderDate, ' ') AS `Waktu Orderan`, p.buyPrice AS `Harga Beli`,  od.priceEach AS `Harga Jual`, SUM(od.quantityOrdered) AS `Total Jumlah Orderan`,
+CONCAT(od.priceEach * SUM(od.quantityOrdered), ' - ', p.buyPrice * SUM(od.quantityOrdered), ' = ', SUM(od.quantityOrdered) * (od.priceEach - p.buyPrice)) AS `Pendapatan - Modal = Keuntungan`
+FROM orders o
+JOIN orderdetails od
+USING (orderNumber)
+JOIN products p
+USING (productCode)
+GROUP BY `Harga Jual`
+HAVING `Nama Produk` LIKE '%ENZO'
+AND SUM(od.quantityOrdered) * (od.priceEach - p.buyPrice) > 5000
+ORDER BY SUM(od.quantityOrdered) * (od.priceEach - p.buyPrice) DESC;
 
 -- Nomor 5
 
-select o.addressLine1 as Alamat,
-replace (o.phone, right(o.phone, 6), '* ****') as `Nomor Telpon`, count(distinct e.employeeNumber) as 'Jumlah Karyawan',
-count(distinct c.customerNumber) as `Jumlah Pelanggan`, round (avg(p.amount), 2) as `Rata Rata Penghasilan`
-from customers c
-join employees e
-on e.employeeNumber = c.salesRepEmployeeNumber
-join offices o
-using (officeCode)
-join payments p
-using (customerNumber)
-group by o.phone;
+SELECT o.addressLine1 AS Alamat,
+REPLACE (o.phone, RIGHT(o.phone, 6), '* ****') AS `Nomor Telpon`, COUNT(DISTINCT e.employeeNumber) AS 'Jumlah Karyawan',
+COUNT(DISTINCT c.customerNumber) AS `Jumlah Pelanggan`, ROUND(AVG(p.amount), 2) AS `Rata Rata Penghasilan`
+FROM customers c
+JOIN employees e
+ON e.employeeNumber = c.salesRepEmployeeNumber
+JOIN offices o
+USING (officeCode)
+JOIN payments p
+USING (customerNumber)
+GROUP BY o.phone;

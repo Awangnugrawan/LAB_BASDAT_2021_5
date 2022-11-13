@@ -1,50 +1,51 @@
-use classicmodels;
+USE classicmodels;
 
-select customerNumber, customerName, max(amount), min(amount) from customers
-join payments p
-using (customerNumber)
-where exists(select amount from payments where amount and customerNumber != 0) 
-group by customerNumber;
+-- Nomor 1
+SELECT customerNumber, customerName, MAX(amount), MIN(amount) FROM customers
+JOIN payments p
+USING (customerNumber)
+WHERE  EXISTS(SELECT amount FROM payments WHERE amount AND customerNumber != 0) 
+GROUP BY customerNumber;
 
 -- Nomor 2
-select e.employeeNumber, e.firstName, e.lastName, o.city, o.officeCode 
-from employees e
-join offices o 
-using (officeCode)
-where officeCode in (
-	select officeCode from offices
-    having max(officeCode)
+SELECT e.employeeNumber, e.firstName, e.lastName, o.city, o.officeCode 
+FROM employees e
+JOIN offices o 
+USING (officeCode)
+WHERE officeCode IN (
+	SELECT officeCode FROM offices
+    HAVING MAX(officeCode)
     );
 
 -- Nomor 3
-select productName, productScale
-from products
-where productName in(
-	select productName from products
-    where productName like '%Ford%');
+SELECT productName, productScale
+FROM products
+WHERE productName IN(
+	SELECT productName FROM products
+    WHERE productName LIKE '%Ford%');
     
 -- Nomor 4
-select customerName, firstName, lastName as 'last name', o.orderNumber,
-sum(quantityOrdered * priceEach) as 'Total'
-from customers c
-join employees e
-on c.salesRepEmployeeNumber = e.employeeNumber
-join orders o
-using (customerNumber)
-join orderdetails od
-using (orderNumber)
-where orderNUmber = (
-	select orderNumber
-    from orderdetails
-    group by orderNumber
-    order by sum(quantityOrdered * priceEach)
-    desc limit 1);
+SELECT customerName, firstName, lastName AS 'last name', o.orderNumber,
+SUM(quantityOrdered * priceEach) AS 'Total'
+FROM customers c
+JOIN employees e
+ON c.salesRepEmployeeNumber = e.employeeNumber
+JOIN orders o
+USING (customerNumber)
+JOIN orderdetails od
+USING (orderNumber)
+WHERE orderNUmber = (
+	SELECT orderNumber
+    FROM orderdetails
+    GROUP BY orderNumber
+    ORDER BY SUM(quantityOrdered * priceEach)
+    DESC LIMIT 1);
     
 -- Nomor 5
- select c.country as negara, length(c.country) as panjang_karakter
-from customers c
-having panjang_karakter in (select max(length(country)) from customers)
-	or panjang_karakter in (select min(length(country)) from customers)
-order by c.country asc
-limit 2
+SELECT c.country AS negara, LENGTH(c.country) AS panjang_karakter
+FROM customers c
+HAVING panjang_karakter IN (SELECT MAX(LENGTH(country)) FROM customers)
+	OR panjang_karakter IN (SELECT MIN(LENGTH(country)) FROM customers)
+ORDER BY c.country ASC
+LIMIT 2
 ;
