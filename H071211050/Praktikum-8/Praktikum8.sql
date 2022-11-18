@@ -61,25 +61,34 @@
 --  GROUP BY city
 --  ORDER BY COUNT(city) DESC;
 
--- No 1
--- SELECT e.firstName, o.phone, CONCAT(LEFT(o.phone, LENGTH(o.phone)-7), '*** ****') AS no_telp
--- FROM offices o
--- JOIN employees e
--- WHERE o.phone LIKE '+33%'
--- LIMIT 5;
+-- NO 1
+-- SELECT e.firstName, o.phone, CONCAT(LEFT(o.phone, LENGTH(o.phone)-8),'*** ****') AS no_telp 
+-- FROM employees e
+-- JOIN offices o
+-- USING (officeCode)
+-- WHERE o.phone LIKE '+33%';
 
--- No 9 (ERROR)
--- SELECT nama, 'nama produk', modal
--- FROM (
--- SELECT c.customerName AS nama, p.productName AS nama_produk, CONCAT(MAX(od.quantityOrdered * p.buyPrice), MIN(od.quantityOrdered * p.buyPrice)) AS modal
+-- NO 9
+-- (SELECT c.customerName,p.productName, (SELECT p.buyPrice * SUM(od.quantityOrdered)) AS `modal` 
 -- FROM customers c
--- JOIN orders o
--- USING (customerNumber)
--- JOIN orderdetails od
--- USING (orderNumber)
--- JOIN products p
--- USING (productCode))
--- GROUP BY nama;
-
-
- 
+-- JOIN orders o 
+-- USING(customerNumber)
+-- JOIN orderdetails od 
+-- USING(orderNumber)
+-- JOIN products p 
+-- USING(productCode)
+-- GROUP BY customerName
+-- ORDER BY modal DESC
+-- LIMIT 3)
+-- UNION
+-- (SELECT customerName,p.productName, (SELECT p.buyPrice * SUM(od.quantityOrdered)) AS `modal` 
+-- FROM customers c
+-- JOIN orders o 
+-- USING(customerNumber)
+-- JOIN orderdetails od 
+-- USING(orderNumber)
+-- JOIN products p 
+-- USING(productCode)
+-- GROUP BY customerName
+-- ORDER BY modal ASC
+-- LIMIT 3); 
